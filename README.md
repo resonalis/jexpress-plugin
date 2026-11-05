@@ -42,6 +42,12 @@ The plugin itself runs no local code, installs no packages and contacts no other
 
 See the [privacy policy](PRIVACY.md) for what the server stores and for how long.
 
+## Product and publisher branding
+
+J-Express is the product, and [its official seven-hexagon mark](assets/jexpress-logo.svg) is the ChatGPT plugin `logo` and `composerIcon`. [Resonalis's approved moth emblem](assets/resonalis-logo.svg) identifies the publisher; the two logos must not be interchanged.
+
+The portable manifest declares **Resonalis** as author/developer. Personal, private ChatGPT plugin preview cards may nonetheless show the importing account's name rather than the company's verified publisher identity. A public listing must be submitted under a verified Resonalis developer identity. The companion Claude icon remains unchanged.
+
 ## Support
 
 J-Express and this plugin are provided by Resonalis. Contact: contact@resonalis.com.
