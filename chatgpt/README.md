@@ -26,9 +26,16 @@ Status: **preparation only**. This repository is not evidence that J-Express is 
 5. Try `list_datasets`, `read_dataset_details`, and a read-only quality/analysis capability query.
 6. Disconnect in J-Express and verify further requests fail.
 
+## Private installation smoke test
+
+A private J-Express 0.1.0 test plugin was imported successfully from the GitHub Actions ZIP into a personal ChatGPT account. To finish runtime verification, install/activate that private plugin from the ChatGPT Plugins page (the private link is supplied to the owner directly), then start **a new conversation**. Check that all five skills are discoverable and that a read-only query on the demo `diauxic shift` calls the **new private plugin** MCP connection, not a pre-existing development connector. Ask for a matrix-analysis workflow; verify other skills with a separate request for their respective workflow guidance, without performing writes. Log exact client/plugin identity and tool calls.
+
+The private import automatically normalized developer identity to the importing personal account; public submission must select and verify the intended Resonalis publisher.
+
 ## Publication checklist
-- [ ] Validate the root `plugin.json` and `mcp.json` against the current OpenAI packaging specification and run the actual submission validator. These files are candidates, not proof of compatibility.
-- [ ] Verify that the five shared skills are discovered and invoked in the target ChatGPT client; repository presence alone does not establish runtime availability.
+- [x] Validate portable `plugin.json` and `mcp.json` against Agent Plugins 1.0.0 official JSON schemas in [GitHub Actions](https://github.com/resonalis/jexpress-plugin/actions/runs/42101736196), and import the ZIP successfully with OpenAI's private Plugin Creator. The public submission portal scan remains pending.
+- [x] Confirm all five original skills were included in the imported private plugin, with exact content matches against the source repo.
+- [ ] Activate the private plugin in a fresh ChatGPT conversation and prove all five skills are discoverable and invokable at runtime. Private package import is not proof of activation.
 - [ ] Test OAuth with an independent account and verify cross-user session isolation, scopes, token revocation, and write consent.
 - [ ] Audit deployed storage, logging, telemetry and retention against the updated platform-neutral privacy policy; remove the publication note only after review. Publish final Terms of Use at a stable public URL.
 - [ ] Verify logo sizing, screenshot requirements, support and reviewer access.
