@@ -15,6 +15,7 @@ Scope: static review of `resonalis/jexpress-plugin` and current `bdysvik/jexpres
 
 ## Blockers / required live verification
 
+- [x] **Bounded raw-data read via J-ExpressDeploy**: `read_dataset_slice` returned exactly 2 rows × 3 columns from `diauxic shift`, including row labels, column metadata and six numeric matrix values. This verifies that the authorized connector can disclose raw data as described in the privacy policy.
 - [x] **Read-only live MCP smoke test via J-ExpressDeploy**: `list_datasets`, `list_scientific_capabilities`, `read_dataset_details`, `inspect_dataset_quality`, and `propose_analysis_workflow` succeeded against `diauxic shift` (391 rows × 7 columns). Quality scan completed 2,737 values and found 4 missing values; the workflow correctly required review and did not execute analysis. This verifies the currently authorized Deploy connection, **not** new-plugin installation or cross-account OAuth.
 - [ ] `get_dataset_lock` was blocked by OpenAI's security control; no lock-state conclusion can be drawn. Earlier direct J-Express connector calls were denied; use Deploy for subsequent live checks.
 - [ ] Verify the exact OpenAI manifest schema and execute its validator. Schema URL and extension properties in the root manifests are **candidate values**, not certified compatible.
