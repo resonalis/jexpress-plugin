@@ -8,6 +8,7 @@ on:
       - 'plugin.json'
       - 'mcp.json'
       - 'skills/**'
+      - 'assets/**'
       - 'scripts/validate_plugin.py'
       - '.github/workflows/validate-chatgpt-plugin.yml'
   workflow_dispatch:
@@ -33,7 +34,7 @@ jobs:
           import zipfile
           root=Path('.')
           names=['plugin.json','mcp.json','PRIVACY.md','LICENSE','.claude-plugin/icon.png']
-          names += [str(p) for p in sorted(Path('skills').rglob('*')) if p.is_file()]
+          names += [str(p) for folder in ('skills','assets') for p in sorted(Path(folder).rglob('*')) if p.is_file()]
           out=Path('dist/jexpress-chatgpt-plugin.zip')
           out.parent.mkdir(exist_ok=True)
           with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED) as z:
