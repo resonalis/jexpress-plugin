@@ -1,6 +1,6 @@
-# J-Express for Claude
+# J-Express AI plugin — Claude and ChatGPT
 
-J-Express is a browser-based application for exploring and analyzing numeric matrices: gene expression, bulk and single-cell RNA-seq, proteomics and text embeddings. This plugin connects Claude to your J-Express session and adds five analysis skills that tell Claude how to plan and run careful, reproducible analyses with the J-Express tools.
+J-Express is a browser-based application for exploring and analyzing numeric matrices: gene expression, bulk and single-cell RNA-seq, proteomics and text embeddings. This repository packages the J-Express MCP connection and five shared scientific analysis skills. Claude plugin metadata lives in `.claude-plugin/`; ChatGPT publication preparation lives in [`chatgpt/`](chatgpt/README.md). ChatGPT support is being prepared and is not yet publicly listed.
 
 **Status: preview (0.1.0).** The skills are still being validated against the J-Express tools. They have not been scientifically validated, and their results should be reviewed by someone qualified to judge them.
 
@@ -25,14 +25,18 @@ Each skill states what J-Express can and cannot do today. For example, inferenti
 - A J-Express session open in your browser at https://jexpress.resonalis.com/jexpress2026.
 - Sign-in to the MCP server. The first time Claude uses it, you are asked to authorize the connection to your J-Express session (OAuth).
 
-## Install
+## Install and availability
+
+**ChatGPT:** Publication preparation and reviewer instructions are in [`chatgpt/README.md`](chatgpt/README.md). This is not yet a public ChatGPT directory listing. The MCP server URL is shared with Claude.
+
+**Claude:**
 
 - **claude.ai, Claude Desktop and Cowork:** add **J-Express** from the plugin directory under **Customize → Plugins**, then connect the J-Express connector on the plugin's **Connectors** tab.
 - **Claude Code:** run `claude plugin marketplace add resonalis/jexpress-plugin`, then `claude plugin install jexpress@jexpress`.
 
 ## Data and privacy
 
-Your datasets stay in your browser. When Claude calls a J-Express tool, the request goes to the J-Express server at `jexpress.resonalis.com`, which passes it to your open, authorized J-Express tab. The tab computes the answer and the result travels back the same way to Claude. Depending on the tool, results contain dataset summaries, quality statistics, bounded slices of matrix values, row or column labels, analysis results or view images.
+Your datasets stay in your browser. When an authorized AI client calls a J-Express tool, the request goes to the J-Express server at `jexpress.resonalis.com`, which passes it to your open, authorized J-Express tab. The tab computes the answer and the result travels back the same way to the client. Depending on the tool, results contain dataset summaries, quality statistics, bounded slices of matrix values, row or column labels, analysis results or view images.
 
 The plugin itself runs no local code, installs no packages and contacts no other service. Datasets are locked against writes by default. Tools that change data create new child datasets and need an explicit unlock and confirmation; the skills tell Claude to ask you before doing either.
 
