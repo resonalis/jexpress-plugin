@@ -9,7 +9,7 @@ Status: **preparation only**. This repository is not evidence that J-Express is 
 - Contact: `contact@resonalis.com`
 - Scientific guidance: the five shared `../skills/jexpress-*/SKILL.md` files.
 - Product icon: [`../assets/jexpress-logo.svg`](../assets/jexpress-logo.svg), copied from the J-Express application's canonical `public/jexpress-logo.svg` (square 512×512 SVG wrapper).
-- Publisher mark: [`../assets/resonalis-logo.svg`](../assets/resonalis-logo.svg), copied from the approved Resonalis emblem used on the Resonalis website. This is a separate publisher branding asset, **not** the J-Express application icon.
+- Publisher mark: [`../assets/resonalis-logo.webp`](../assets/resonalis-logo.webp), a byte-for-byte copy of the **actual `public/assets/Rlogo.webp` used by the Resonalis website**. This is a separate publisher branding asset, **not** the J-Express application icon.
 - The legacy Claude image [`../.claude-plugin/icon.png`](../.claude-plugin/icon.png) remains unchanged.
 - Privacy policy: `../PRIVACY.md` (now cross-platform; retention and telemetry claims still require production verification).
 
@@ -34,7 +34,7 @@ A private J-Express 0.1.0 test plugin was imported successfully from the GitHub 
 
 **Publisher identity limitation:** OpenAI's private personal-plugin import normalizes the displayed publisher/developer name to the importing personal account. Both root `author` and OpenAI `interface.developerName` in this repository are `Resonalis`, but this alone cannot remove the personal name shown on a `USER`-scoped private plugin. To publish with `Av Resonalis`, select/create a **verified Resonalis developer identity/workspace** in the publication workflow. Do not misrepresent the personal private plugin as company-published.
 
-**Icon rendering:** The old Claude PNG already contained the correct J-Express glyph, but the personal plugin card displayed a default star. The portable manifest now points to the official product SVG under `assets/`. This fixes asset mapping; actual rendering is controlled by the ChatGPT client/catalog and must be checked after refreshing/installing the new private release. The Resonalis SVG is included for future publisher branding but **cannot be forced as a separate publisher avatar using the portable interface fields**.
+**Icon rendering:** The old Claude PNG already contained the correct J-Express glyph, but the personal plugin card displayed a default star. The portable manifest now points to the official product SVG under `assets/`. This fixes asset mapping; actual rendering is controlled by the ChatGPT client/catalog and must be checked after refreshing/installing the new private release. The actual Resonalis website WebP is included for future publisher branding but **cannot be forced as a separate publisher avatar using the portable interface fields**. Previous answers showed unrelated image-search results, which were not images from the plugin package.
 
 ## Publication checklist
 - [x] Validate portable `plugin.json` and `mcp.json` against Agent Plugins 1.0.0 official JSON schemas in [GitHub Actions](https://github.com/resonalis/jexpress-plugin/actions/runs/42101736196), and import the ZIP successfully with OpenAI's private Plugin Creator. The public submission portal scan remains pending.
@@ -42,7 +42,7 @@ A private J-Express 0.1.0 test plugin was imported successfully from the GitHub 
 - [ ] Activate the private plugin in a fresh ChatGPT conversation and prove all five skills are discoverable and invokable at runtime. Private package import is not proof of activation.
 - [ ] Test OAuth with an independent account and verify cross-user session isolation, scopes, token revocation, and write consent.
 - [ ] Audit deployed storage, logging, telemetry and retention against the updated platform-neutral privacy policy; remove the publication note only after review. Publish final Terms of Use at a stable public URL.
-- [x] Package and validate square J-Express and Resonalis SVG brand assets, with `composerIcon` and `logo` both pointing to the J-Express product mark.
+- [x] Package the J-Express vector product mark and the actual Resonalis website WebP publisher mark; verify exact origin/hash, keeping `composerIcon` and `logo` both pointing to the J-Express product mark.
 - [ ] Verify rendering of the J-Express icon in the ChatGPT UI and separately configure the verified Resonalis publisher identity; manifest fields alone do not control the personal account byline.
 - [ ] Verify screenshot requirements, support and reviewer access.
 - [ ] Obtain explicit approval before submission.

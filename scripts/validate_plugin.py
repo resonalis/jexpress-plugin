@@ -7,7 +7,7 @@ Requires: python -m pip install jsonschema PyYAML
 from __future__ import annotations
 
 import json
-import re
+import hashlib
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -59,16 +59,22 @@ for field in ("composerIcon", "logo"):
         assert (root / path).is_file(), f"Missing {field}: {path}"
 for field in ("websiteURL", "privacyPolicyURL", "supportURL"):
     assert interface[field].startswith("https://"), f"Invalid {field}"
-# The product and publisher logos are independently sourced, and both have square
-# numeric dimensions required by the directory image requirements.
-for asset in ("assets/jexpress-logo.svg", "assets/resonalis-logo.svg"):
-    tree = ET.parse(root / asset)
-    tag = tree.getroot()
-    assert tag.attrib.get("width") == tag.attrib.get("height") == "512", asset
-    vb = [float(v) for v in tag.attrib["viewBox"].replace(",", " ").split()]
-    assert len(vb) == 4 and vb[2] == vb[3] >= 48, asset
-    assert len((root / asset).read_bytes()) < 5 * 1024 * 1024, asset
-print("PASS OpenAI manifest, source logos, and endpoints")
+# Use the J-Express source SVG as the product icon, and the exact current
+# website WebP as a separate publisher asset (not the application icon).
+asset = "assets/jexpress-logo.svg"
+tag = ET.parse(root / asset).getroot()
+assert tag.attrib.get("width") == tag.attrib.get("height") == "512", asset
+vb = [float(v) for v in tag.attrib["viewBox"].replace(",", " ").split()]
+assert len(vb) == 4 and vb[2] == vb[3] >= 48, asset
+assert len((root / asset).read_bytes()) < 5 * 1024 * 1024, asset
+
+publisher = (root / "assets/resonalis-logo.webp").read_bytes()
+assert publisher[:4] == b"RIFF" and publisher[8:12] == b"WEBP"
+assert len(publisher) < 5 * 1024 * 1024
+# Git blob SHA of bdysvik/molmine-website:public/assets/Rlogo.webp on main.
+git_blob = b"blob " + str(len(publisher)).encode() + b"\0" + publisher
+assert hashlib.sha1(git_blob).hexdigest() == "beb2f11290a06a812fccd4fc5541eb63051844ef", "Publisher logo is not the current website asset"
+print("PASS OpenAI manifest, exact source logos, and endpoints")
 
 expected_skills = {
     "jexpress-matrix-analysis",
