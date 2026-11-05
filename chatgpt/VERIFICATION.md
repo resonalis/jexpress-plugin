@@ -39,6 +39,16 @@ Scope: static review of `resonalis/jexpress-plugin` and current `bdysvik/jexpres
 - [ ] **Publisher identity**: personal plugin import normalized publisher to the importing account; public submission must verify Resonalis publisher identity.
 - [ ] **Privacy link**: plugin manifest links `main/PRIVACY.md`, but cross-platform privacy revisions are branch-only until merged.
 
+## Branding verification — 2026-11-05
+
+- [x] Imported the canonical J-Express 7-hexagon SVG from `bdysvik/jexpress/public/jexpress-logo.svg` into `assets/jexpress-logo.svg`, adjusted only for square image sizing. It is referenced by **both** portable OpenAI `interface.logo` and `interface.composerIcon`.
+- [x] Imported the approved Resonalis moth emblem from `bdysvik/molmine-website/public/assets/resonalis-approved.svg` to `assets/resonalis-logo.svg` as a separate publisher asset. It is **not** misused as the J-Express application icon.
+- [x] Portable manifest author: `Resonalis <contact@resonalis.com>`. OpenAI interface: `developerName: Resonalis`.
+- [x] GitHub Actions run [42106063691](https://github.com/resonalis/jexpress-plugin/actions/runs/42106063691) passed square-image and manifest checks, packaged both assets, and uploaded a test ZIP.
+- [x] Updated the existing personal private plugin from v0.1.0 to **v0.1.1** using the exact CI-generated package. The private import succeeded and inspecting the normalized `.codex-plugin/plugin.json` verified `author.name`, `interface.developerName`, both icon paths and assets.
+- [ ] **Observed ChatGPT UI byline/icon still need owner verification.** Personal scope remains `USER`; even with `developerName: Resonalis` in normalized metadata, OpenAI may display the private importing account's verified identity. The old card showed a default star despite the old PNG already containing the J-Express logo; new SVG mapping is accepted but on-screen rendering cannot be checked by tool.
+- [ ] For public company branding, select a **verified Resonalis developer/workspace identity** in OpenAI's plugin publication process. The publisher/avatar is not a separate configurable image field in the portable package manifest.
+
 ## Release recommendation
 
 **Do not submit yet.** Static source review found useful safeguards but cannot establish end-to-end authorization, revocation, isolation, privacy-retention or official manifest compliance.
