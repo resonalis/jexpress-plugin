@@ -1,0 +1,49 @@
+name: Validate ChatGPT plugin package
+
+on:
+  push:
+    branches: [feature/chatgpt-plugin]
+  pull_request:
+    paths:
+      - 'plugin.json'
+      - 'mcp.json'
+      - 'skills/**'
+      - 'scripts/validate_plugin.py'
+      - '.github/workflows/validate-chatgpt-plugin.yml'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install validation dependencies
+        run: python -m pip install --disable-pip-version-check jsonschema==4.25.1 PyYAML==6.0.3
+      - name: Validate canonical schemas, references and skills
+        run: python scripts/validate_plugin.py
+      - name: Package the exact validated source files
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import zipfile
+          root=Path('.')
+          names=['plugin.json','mcp.json','PRIVACY.md','LICENSE','.claude-plugin/icon.png']
+          names += [str(p) for p in sorted(Path('skills').rglob('*')) if p.is_file()]
+          out=Path('dist/jexpress-chatgpt-plugin.zip')
+          out.parent.mkdir(exist_ok=True)
+          with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED) as z:
+              for name in names:
+                  assert Path(name).is_file(), name
+                  z.write(name, name)
+          print(f"Packaged {len(names)} files to {out}")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jexpress-chatgpt-plugin
+          path: dist/jexpress-chatgpt-plugin.zip
+          if-no-files-found: error
