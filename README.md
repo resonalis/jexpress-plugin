@@ -1,6 +1,6 @@
-# J-Express for Claude
+# J-Express AI plugin — Claude and ChatGPT
 
-J-Express is a browser-based application for exploring and analyzing numeric matrices: gene expression, bulk and single-cell RNA-seq, proteomics and text embeddings. This plugin connects Claude to your J-Express session and adds five analysis skills that tell Claude how to plan and run careful, reproducible analyses with the J-Express tools.
+J-Express is a browser-based application for exploring and analyzing numeric matrices: gene expression, bulk and single-cell RNA-seq, proteomics and text embeddings. This repository provides a shared J-Express MCP integration and five scientific analysis skills for AI assistants, including Claude and ChatGPT. The skills guide AI-assisted, reproducible workflows using J-Express tools. Claude plugin installation is available; ChatGPT plugin packaging and public listing are being validated.
 
 **Status: preview (0.1.0).** The skills are still being validated against the J-Express tools. They have not been scientifically validated, and their results should be reviewed by someone qualified to judge them.
 
@@ -23,18 +23,22 @@ Each skill states what J-Express can and cannot do today. For example, inferenti
 ## Requirements
 
 - A J-Express session open in your browser at https://jexpress.resonalis.com/jexpress2026.
-- Sign-in to the MCP server. The first time Claude uses it, you are asked to authorize the connection to your J-Express session (OAuth).
+- Sign-in to the MCP server. The first time an AI client connects, you are asked to authorize access to your J-Express browser session (OAuth).
 
-## Install
+## Install and availability
+
+**ChatGPT:** J-Express can already be connected through its MCP endpoint in supported ChatGPT clients. A dedicated ChatGPT plugin package and public directory listing are under development and have not yet been approved. The same five scientific skills are intended to be reused, but automatic skill loading has not yet been verified. See the [ChatGPT development branch](https://github.com/resonalis/jexpress-plugin/tree/feature/chatgpt-plugin/chatgpt) and its [verification report](https://github.com/resonalis/jexpress-plugin/blob/feature/chatgpt-plugin/chatgpt/VERIFICATION.md).
+
+**Claude:**
 
 - **claude.ai, Claude Desktop and Cowork:** add **J-Express** from the plugin directory under **Customize → Plugins**, then connect the J-Express connector on the plugin's **Connectors** tab.
 - **Claude Code:** run `claude plugin marketplace add resonalis/jexpress-plugin`, then `claude plugin install jexpress@jexpress`.
 
 ## Data and privacy
 
-Your datasets stay in your browser. When Claude calls a J-Express tool, the request goes to the J-Express server at `jexpress.resonalis.com`, which passes it to your open, authorized J-Express tab. The tab computes the answer and the result travels back the same way to Claude. Depending on the tool, results contain dataset summaries, quality statistics, bounded slices of matrix values, row or column labels, analysis results or view images.
+Your datasets stay in your browser. When an authorized AI client calls a J-Express tool, the request goes to the J-Express server at `jexpress.resonalis.com`, which passes it to your open, authorized J-Express tab. The tab computes the answer and the result travels back the same way to the AI client. Depending on the tool, results contain dataset summaries, quality statistics, bounded slices of matrix values, row or column labels, analysis results or view images.
 
-The plugin itself runs no local code, installs no packages and contacts no other service. Datasets are locked against writes by default. Tools that change data create new child datasets and need an explicit unlock and confirmation; the skills tell Claude to ask you before doing either.
+The plugin itself runs no local code, installs no packages and contacts no other service. Datasets are locked against writes by default. Tools that change data create new child datasets and need an explicit unlock and confirmation; the skills instruct the AI client to request user review before either action.
 
 See the [privacy policy](PRIVACY.md) for what the server stores and for how long.
 
