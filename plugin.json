@@ -38,8 +38,10 @@
           "Check quality and normalization options for my RNA-seq dataset.",
           "Explain the PCA and clustering results in my J-Express workspace."
         ],
-        "composerIcon": "./.claude-plugin/icon.png",
-        "logo": "./.claude-plugin/icon.png"
+        "composerIcon": "./assets/jexpress-logo.svg",
+        "logo": "./assets/jexpress-logo.svg",
+        "brandColor": "#1451C0",
+        "brandColorDark": "#00C8BF"
       }
     }
   }
