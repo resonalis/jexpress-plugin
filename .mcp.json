@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "jexpress": {
+      "type": "http",
+      "url": "https://jexpress.resonalis.com/jexpress2026/mcp"
+    }
+  }
+}

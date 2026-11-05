@@ -1,0 +1,15 @@
+{
+  "name": "jexpress",
+  "displayName": "J-Express",
+  "version": "0.1.0",
+  "description": "Analyze gene-expression, single-cell, proteomics and embedding matrices in J-Express: QC, normalization, PCA, clustering, UMAP and guarded scientific workflows through the J-Express MCP server.",
+  "author": {
+    "name": "Resonalis",
+    "email": "contact@resonalis.com"
+  },
+  "homepage": "https://jexpress.resonalis.com/jexpress2026",
+  "repository": "https://github.com/resonalis/jexpress-plugin",
+  "license": "Apache-2.0",
+  "privacyPolicyUrl": "https://github.com/resonalis/jexpress-plugin/blob/main/PRIVACY.md",
+  "keywords": ["bioinformatics", "gene-expression", "rna-seq", "single-cell", "pca", "clustering", "umap", "embeddings"]
+}

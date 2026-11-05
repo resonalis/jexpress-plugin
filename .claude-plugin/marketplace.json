@@ -1,0 +1,15 @@
+{
+  "name": "jexpress",
+  "description": "The J-Express plugin for Claude",
+  "owner": {
+    "name": "Resonalis",
+    "email": "contact@resonalis.com"
+  },
+  "plugins": [
+    {
+      "name": "jexpress",
+      "source": "./",
+      "description": "J-Express analysis skills and the J-Express MCP server"
+    }
+  ]
+}
