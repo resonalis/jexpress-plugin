@@ -9,7 +9,7 @@ Status: **preparation only**. This repository is not evidence that J-Express is 
 - Contact: `contact@resonalis.com`
 - Scientific guidance: the five shared `../skills/jexpress-*/SKILL.md` files.
 - Artwork: `../.claude-plugin/icon.png` (confirm required dimensions and rights for the target directory).
-- Existing privacy policy: `../PRIVACY.md` (currently Claude-specific; must be reviewed and updated before ChatGPT publication).
+- Privacy policy: `../PRIVACY.md` (now cross-platform; retention and telemetry claims still require production verification).
 
 ## Proposed listing copy
 **Name:** J-Express
@@ -27,10 +27,10 @@ Status: **preparation only**. This repository is not evidence that J-Express is 
 6. Disconnect in J-Express and verify further requests fail.
 
 ## Publication checklist
-- [ ] Confirm current OpenAI submission and packaging specification from official documentation; create a platform-specific manifest only after its schema is verified.
-- [ ] Decide whether skills are packaged with the plugin or exposed through another supported mechanism, and verify their discovery in the target ChatGPT client.
+- [ ] Validate the root `plugin.json` and `mcp.json` against the current OpenAI packaging specification and run the actual submission validator. These files are candidates, not proof of compatibility.
+- [ ] Verify that the five shared skills are discovered and invoked in the target ChatGPT client; repository presence alone does not establish runtime availability.
 - [ ] Test OAuth with an independent account and verify cross-user session isolation, scopes, token revocation, and write consent.
-- [ ] Publish an accurate **platform-neutral** privacy policy and public Terms of Use; confirm storage/retention claims against server implementation.
+- [ ] Audit deployed storage, logging, telemetry and retention against the updated platform-neutral privacy policy; remove the publication note only after review. Publish final Terms of Use at a stable public URL.
 - [ ] Verify logo sizing, screenshot requirements, support and reviewer access.
 - [ ] Obtain explicit approval before submission.
 
