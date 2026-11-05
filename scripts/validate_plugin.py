@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import re
 import sys
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from urllib.request import urlopen
 
@@ -39,12 +40,18 @@ manifest = json.loads((root / "plugin.json").read_text(encoding="utf-8"))
 mcp = json.loads((root / "mcp.json").read_text(encoding="utf-8"))
 assert manifest["name"] == "jexpress"
 assert manifest["version"]
+assert manifest["author"]["name"] == "Resonalis"
+assert manifest["author"]["email"] == "contact@resonalis.com"
 assert len(mcp["mcpServers"]) == 1
 assert mcp["mcpServers"]["jexpress"]["type"] == "streamable-http"
 assert mcp["mcpServers"]["jexpress"]["url"] == "https://jexpress.resonalis.com/jexpress2026/mcp"
 
 openai = manifest.get("extensions", {}).get("com.openai", {})
 interface = openai.get("interface", {})
+assert interface["displayName"] == "J-Express"
+assert interface["developerName"] == "Resonalis"
+assert interface["logo"] == "./assets/jexpress-logo.svg"
+assert interface["composerIcon"] == "./assets/jexpress-logo.svg"
 for field in ("composerIcon", "logo"):
     path = interface.get(field)
     if path:
@@ -52,7 +59,16 @@ for field in ("composerIcon", "logo"):
         assert (root / path).is_file(), f"Missing {field}: {path}"
 for field in ("websiteURL", "privacyPolicyURL", "supportURL"):
     assert interface[field].startswith("https://"), f"Invalid {field}"
-print("PASS OpenAI manifest references and endpoints")
+# The product and publisher logos are independently sourced, and both have square
+# numeric dimensions required by the directory image requirements.
+for asset in ("assets/jexpress-logo.svg", "assets/resonalis-logo.svg"):
+    tree = ET.parse(root / asset)
+    tag = tree.getroot()
+    assert tag.attrib.get("width") == tag.attrib.get("height") == "512", asset
+    vb = [float(v) for v in tag.attrib["viewBox"].replace(",", " ").split()]
+    assert len(vb) == 4 and vb[2] == vb[3] >= 48, asset
+    assert len((root / asset).read_bytes()) < 5 * 1024 * 1024, asset
+print("PASS OpenAI manifest, source logos, and endpoints")
 
 expected_skills = {
     "jexpress-matrix-analysis",
