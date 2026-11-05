@@ -20,7 +20,9 @@ Scope: static review of `resonalis/jexpress-plugin` and current `bdysvik/jexpres
 - [ ] Verify the exact OpenAI manifest schema and execute its validator. Schema URL and extension properties in the root manifests are **candidate values**, not certified compatible.
 - [ ] Verify actual skill discovery and invocation in the target ChatGPT client, not merely file presence.
 - [ ] Test two independent accounts for cross-session isolation, OAuth scopes, refresh after disconnect, and write confirmation.
-- [ ] Review session/token invalidation: `worker/oauthTokens.ts` `/revoke-session` returns HTTP 503 (`live_session_validation_required`); protected MCP requests check live session, but the token registry itself does not revoke on that endpoint. Confirm refresh cannot reactivate a disconnected browser session.
+- [x] **Refresh code-path review**: `worker/index.ts` refresh-token handler first calls `/inspect-refresh` then requires a successful live `AiSession /internal-summary` response before `/refresh` issues new tokens. Therefore a disconnected session cannot refresh through this exposed route while the live-session check rejects it. This is a source-level finding, not a disconnect/reconnect integration test.
+- [ ] **Token cleanup**: `worker/oauthTokens.ts` `/revoke-session` still returns HTTP 503 (`live_session_validation_required`) rather than deleting token registrations. Live-session checks protect MCP and refresh routes, but implement explicit session token revocation before public release and test races/reconnection.
+- [x] All five skill files were individually read from the feature branch; each contains YAML frontmatter with `name` and `description` and a domain-specific tool procedure. Actual ChatGPT skill discovery remains untested.
 - [ ] Audit operational logs, telemetry, transient responses and exact retention against `PRIVACY.md`.
 - [ ] Finalize Terms of Use and stable public URLs. `chatgpt/TERMS-DRAFT.md` is not an effective legal document.
 - [ ] Review app permissions and reviewer onboarding in a separate browser/client before public submission.
