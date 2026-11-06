@@ -1,4 +1,4 @@
-# Verification report — 2026-11-05
+# Verification report — updated 2026-11-06
 
 Scope: static review of `resonalis/jexpress-plugin` and current `bdysvik/jexpress` worker source. **Not** a completed external ChatGPT submission or end-to-end OAuth test.
 
@@ -22,9 +22,11 @@ Scope: static review of `resonalis/jexpress-plugin` and current `bdysvik/jexpres
 - [x] All five skills were packaged and imported byte-for-byte. **Runtime activation and invocation in a fresh ChatGPT client session remain pending.**
 - [ ] Test two independent accounts for cross-session isolation, OAuth scopes, refresh after disconnect, and write confirmation.
 - [x] **Refresh code-path review**: `worker/index.ts` refresh-token handler first calls `/inspect-refresh` then requires a successful live `AiSession /internal-summary` response before `/refresh` issues new tokens. Therefore a disconnected session cannot refresh through this exposed route while the live-session check rejects it. This is a source-level finding, not a disconnect/reconnect integration test.
-- [ ] **Token cleanup**: `worker/oauthTokens.ts` `/revoke-session` still returns HTTP 503 (`live_session_validation_required`) rather than deleting token registrations. Live-session checks protect MCP and refresh routes, but implement explicit session token revocation before public release and test races/reconnection.
+- [x] **Token cleanup implemented on an unmerged feature branch:** [J-Express PR #66](https://github.com/bdysvik/jexpress/pull/66) implements `/revoke-session` token deletion + 31-day deny markers, owner-authorized disconnect/revoke, and in-flight result blocking; [targeted CI passed](https://github.com/bdysvik/jexpress/actions/runs/42221134666). This is **not deployed yet**.
+- [ ] **Live post-deploy**: verify two independent client/account OAuth flows, revoked refresh tokens, reconnect and in-flight read cancellation on the actual production worker.
 - [x] All five skill files were individually read from the feature branch; each contains YAML frontmatter with `name` and `description` and a domain-specific tool procedure. Actual ChatGPT skill discovery remains untested.
-- [ ] Audit operational logs, telemetry, transient responses and exact retention against `PRIVACY.md`.
+- [x] **Implementation/Worker configuration audit**: [2026-11-06 technical report](https://github.com/bdysvik/jexpress/blob/feature/chatgpt-oauth-revocation/docs/validation/chatgpt-oauth-privacy-audit-2026-11-06.md) covers Cloudflare Durable Object retention, authentication records, ephemeral MCP results, IP-address rate limiting and analytics. Live Worker `jexpress-web` reports `logpush: false`, no Tail Worker consumers, and `observability: null`.
+- [ ] **Provider/production verification still required**: confirm account-wide Cloudflare security/log retention, backend expiry/cleanup after deployment and independent AI-provider retention. Source/Worker settings alone cannot establish the absence of all logs.
 - [ ] Finalize Terms of Use and stable public URLs. `chatgpt/TERMS-DRAFT.md` is not an effective legal document.
 - [ ] Review app permissions and reviewer onboarding in a separate browser/client before public submission.
 
@@ -36,19 +38,19 @@ Scope: static review of `resonalis/jexpress-plugin` and current `bdysvik/jexpres
 - [x] Inspected private package: original portable manifests, generated compatibility files and all five scientific skills are present. Compared imported skill files against GitHub originals: **all five exact matches**.
 - [ ] **Client runtime**: installing/activating [the private plugin](https://chatgpt.com/plugins/plugins_6aece47f9fe88191839b169360adc341) and invoking each skill in a fresh ChatGPT conversation remains. Skills from an existing development J-Express plugin are not evidence this private plugin is active.
 - [ ] **Public submission**: With MCP tool scan/review and policy checks in OpenAI's submission portal remain.
-- [ ] **Publisher identity**: personal plugin import normalized publisher to the importing account; public submission must verify Resonalis publisher identity.
+- [x] **Publisher plan:** use the current personal developer identity for initial release (the owner accepted the personal byline); consider a future Resonalis AS publisher identity later, subject to platform migration rules.
 - [ ] **Privacy link**: plugin manifest links `main/PRIVACY.md`, but cross-platform privacy revisions are branch-only until merged.
 
 ## Branding verification — 2026-11-05
 
 - [x] Imported the canonical J-Express 7-hexagon SVG from `bdysvik/jexpress/public/jexpress-logo.svg` into `assets/jexpress-logo.svg`, adjusted only for square image sizing. It is referenced by **both** portable OpenAI `interface.logo` and `interface.composerIcon`.
-- [x] Imported the approved Resonalis moth emblem from `bdysvik/molmine-website/public/assets/resonalis-approved.svg` to `assets/resonalis-logo.svg` as a separate publisher asset. It is **not** misused as the J-Express application icon.
+- [x] Added the **exact** Resonalis website branding file `bdysvik/molmine-website/public/assets/Rlogo.webp` as `assets/resonalis-logo.webp` and removed the incorrect alternate SVG. The WebP is separate from the J-Express application icon.
 - [x] Portable manifest author: `Resonalis <contact@resonalis.com>`. OpenAI interface: `developerName: Resonalis`.
 - [x] GitHub Actions run [42106063691](https://github.com/resonalis/jexpress-plugin/actions/runs/42106063691) passed square-image and manifest checks, packaged both assets, and uploaded a test ZIP.
-- [x] Updated the existing personal private plugin from v0.1.0 to **v0.1.1** using the exact CI-generated package. The private import succeeded and inspecting the normalized `.codex-plugin/plugin.json` verified `author.name`, `interface.developerName`, both icon paths and assets.
+- [x] Updated existing personal private plugin through **v0.1.2**. Readback verifies `author.name: Resonalis`, `developerName: Resonalis`, J-Express SVG app icon and the actual Resonalis WebP publisher asset. The personal ChatGPT card may still show the owner-account byline.
 - [ ] **Observed ChatGPT UI byline/icon still need owner verification.** Personal scope remains `USER`; even with `developerName: Resonalis` in normalized metadata, OpenAI may display the private importing account's verified identity. The old card showed a default star despite the old PNG already containing the J-Express logo; new SVG mapping is accepted but on-screen rendering cannot be checked by tool.
-- [ ] For public company branding, select a **verified Resonalis developer/workspace identity** in OpenAI's plugin publication process. The publisher/avatar is not a separate configurable image field in the portable package manifest.
+- [ ] If/when Resonalis AS is founded and independently verified, assess whether OpenAI supports moving the listing to the company developer identity. The portable manifest does not control the account-level byline.
 
 ## Release recommendation
 
-**Do not submit yet.** Static source review found useful safeguards but cannot establish end-to-end authorization, revocation, isolation, privacy-retention or official manifest compliance.
+**Do not submit yet.** The new revocation implementation passes focused tests but is not deployed. Live two-client isolation/reconnect checks, provider retention confirmation and public submission portal checks remain.
