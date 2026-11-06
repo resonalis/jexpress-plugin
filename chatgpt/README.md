@@ -41,7 +41,8 @@ A private J-Express 0.1.0 test plugin was imported successfully from the GitHub 
 - [x] Confirm all five original skills were included in the imported private plugin, with exact content matches against the source repo.
 - [ ] Activate the private plugin in a fresh ChatGPT conversation and prove all five skills are discoverable and invokable at runtime. Private package import is not proof of activation.
 - [ ] Test OAuth with an independent account and verify cross-user session isolation, scopes, token revocation, and write consent.
-- [ ] Audit deployed storage, logging, telemetry and retention against the updated platform-neutral privacy policy; remove the publication note only after review. Publish final Terms of Use at a stable public URL.
+- [x] Audit application retention, transient relay responses, anonymous telemetry, OAuth IP-based rate limiting and selected live Cloudflare Worker settings. See [technical report](https://github.com/bdysvik/jexpress/blob/feature/chatgpt-oauth-revocation/docs/validation/chatgpt-oauth-privacy-audit-2026-11-06.md) and [security draft PR #66](https://github.com/bdysvik/jexpress/pull/66).
+- [ ] Deploy revocation patch, test two independent OAuth clients/account sessions, and confirm Cloudflare account-wide diagnostic/logging retention. Final legal/policy review and published Terms of Use remain before public submission.
 - [x] Package the J-Express vector product mark and the actual Resonalis website WebP publisher mark; verify exact origin/hash, keeping `composerIcon` and `logo` both pointing to the J-Express product mark.
 - [ ] Verify rendering of the J-Express icon in the ChatGPT UI and separately configure the verified Resonalis publisher identity; manifest fields alone do not control the personal account byline.
 - [ ] Verify screenshot requirements, support and reviewer access.
