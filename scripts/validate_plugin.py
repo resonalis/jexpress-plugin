@@ -57,8 +57,24 @@ for field in ("composerIcon", "logo"):
     if path:
         assert path.startswith("./") and ".." not in Path(path).parts, (field, path)
         assert (root / path).is_file(), f"Missing {field}: {path}"
-for field in ("websiteURL", "privacyPolicyURL", "supportURL"):
+for field in ("websiteURL", "privacyPolicyURL", "supportURL", "termsOfServiceURL"):
     assert interface[field].startswith("https://"), f"Invalid {field}"
+assert 0 < len(interface["shortDescription"]) <= 30, "Directory subtitle must be <= 30 characters"
+assert 0 < len(interface["displayName"]) <= 30
+assert 0 < len(interface["longDescription"]) <= 4000
+review = openai.get("review", {})
+cases = review.get("test_cases", {})
+assert len(cases.get("positive", [])) == 5, "Directory requires five positive tests"
+assert len(cases.get("negative", [])) == 3, "Directory requires three negative tests"
+for case in cases["positive"]:
+    assert all(isinstance(case.get(k), str) and case[k].strip() for k in
+               ("description", "prompt", "tools_triggered", "expected_behavior"))
+for case in cases["negative"]:
+    assert all(isinstance(case.get(k), str) and case[k].strip() for k in
+               ("description", "prompt", "expected_behavior"))
+assert review.get("demo_recording_url", "").startswith("https://")
+assert openai.get("publication", {}).get("release_notes")
+print("PASS ChatGPT directory listing, terms, and 5 positive + 3 negative reviewer cases")
 # Use the J-Express source SVG as the product icon, and the exact current
 # website WebP as a separate publisher asset (not the application icon).
 asset = "assets/jexpress-logo.svg"
