@@ -22,7 +22,7 @@
     "com.openai": {
       "interface": {
         "displayName": "J-Express",
-        "shortDescription": "Analyze scientific data with AI",
+        "shortDescription": "Analyze research data with AI",
         "longDescription": "Connect ChatGPT to your J-Express browser workspace to explore scientific data without writing code. Inspect datasets and metadata, check data quality, compare groups, examine PCA/clustering and other plots, and use guided workflows for numerical matrices, embeddings, bulk RNA-seq and single-cell RNA-seq. Optional write-capable tools can create derived datasets and analyses with the permissions you approve; original measurements are preserved by supported transforms. Data remains in your browser for normal analysis, but an explicitly authorized MCP tool can share selected values, metadata and visualizations with ChatGPT through the J-Express relay. Use non-personal, non-confidential research data. Results require independent validation and are not suitable for clinical diagnosis or treatment.",
         "developerName": "Resonalis",
         "category": "Productivity",
