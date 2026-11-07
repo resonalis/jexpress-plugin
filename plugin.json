@@ -1,10 +1,10 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "jexpress",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Scientific matrix, RNA-seq and embedding analysis with J-Express MCP tools and reusable analysis skills.",
   "author": {
-    "name": "Resonalis",
+    "name": "Bjarte Dysvik",
     "email": "contact@resonalis.com",
     "url": "https://resonalis.com"
   },
@@ -23,12 +23,14 @@
       "interface": {
         "displayName": "J-Express",
         "shortDescription": "Analyze research data with AI",
-        "longDescription": "Connect ChatGPT to your J-Express browser workspace to explore scientific data without writing code. Inspect datasets and metadata, check data quality, compare groups, examine PCA/clustering and other plots, and use guided workflows for numerical matrices, embeddings, bulk RNA-seq and single-cell RNA-seq. Optional write-capable tools can create derived datasets and analyses with the permissions you approve; original measurements are preserved by supported transforms. Data remains in your browser for normal analysis, but an explicitly authorized MCP tool can share selected values, metadata and visualizations with ChatGPT through the J-Express relay. Use non-personal, non-confidential research data. Results require independent validation and are not suitable for clinical diagnosis or treatment.",
-        "developerName": "Resonalis",
-        "category": "Productivity",
+        "longDescription": "J-Express is a scientific data analysis workbench for biologists and researchers, including people who do not program. Connect your J-Express browser workspace to ChatGPT to inspect experimental datasets, check data quality, perform exploratory analyses and interpret plots. It supports numerical measurement matrices, bulk and single-cell RNA-seq, and embeddings. Available tools include PCA, clustering, statistical and scientific workflow guidance, plots and bounded data queries. With additional permission, tools can run analyses and create source-preserving derived datasets. The workspace normally runs in your browser; enabling AI connection transmits limited session information to the J-Express relay, and explicitly authorized tool results may send selected matrix values, labels, annotations and images to ChatGPT. Use only permitted, non-personal research datasets. Results require independent scientific validation. Not for clinical diagnosis or treatment.",
+        "developerName": "Bjarte Dysvik",
+        "category": "Data & Analytics",
         "capabilities": [
-          "Read",
-          "Write"
+          "Inspect scientific datasets and metadata",
+          "Run scientific data analyses",
+          "Visualize results and compare groups",
+          "Create derived datasets with approval"
         ],
         "websiteURL": "https://jexpress.resonalis.com/jexpress2026",
         "supportURL": "https://github.com/resonalis/jexpress-plugin/issues",
@@ -100,7 +102,7 @@
         "commerce": false
       },
       "publication": {
-        "release_notes": "Initial public preview of J-Express for ChatGPT (package 0.1.4). Connect a browser-local scientific workspace through user-approved OAuth; inspect research matrices, bulk and single-cell RNA-seq and embeddings with five workflow skills. Includes a public terms/privacy notice, complete MCP tool safety annotations, and deployed session credential revocation and transient-result cleanup."
+        "release_notes": "Public submission update v0.1.5: select Data & Analytics for scientific data workflows; clarify product description and capabilities; align verified individual developer identity with J-Express's Resonalis brand; link the expanded data-use and retention notice. MCP scan warnings are addressed separately in the hosted server."
       }
     }
   }
