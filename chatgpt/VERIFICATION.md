@@ -1,4 +1,4 @@
-# Verification report — updated 2026-11-06
+# Verification report — updated 2026-11-07
 
 Scope: static review of `resonalis/jexpress-plugin` and current `bdysvik/jexpress` worker source. **Not** a completed external ChatGPT submission or end-to-end OAuth test.
 
@@ -23,10 +23,10 @@ Scope: static review of `resonalis/jexpress-plugin` and current `bdysvik/jexpres
 - [ ] Test two independent accounts for cross-session isolation, OAuth scopes, refresh after disconnect, and write confirmation.
 - [x] **Refresh code-path review**: `worker/index.ts` refresh-token handler first calls `/inspect-refresh` then requires a successful live `AiSession /internal-summary` response before `/refresh` issues new tokens. Therefore a disconnected session cannot refresh through this exposed route while the live-session check rejects it. This is a source-level finding, not a disconnect/reconnect integration test.
 - [x] **Full GitHub PR checks:** [run 42222263895](https://github.com/bdysvik/jexpress/actions/runs/42222263895) passed (full tests, typecheck and build) after updating an older storage test mock for the new transient-state purge.
-- [x] **Token cleanup implemented on an unmerged feature branch:** [J-Express PR #66](https://github.com/bdysvik/jexpress/pull/66) implements `/revoke-session` token deletion + 31-day deny markers, owner-authorized disconnect/revoke, and in-flight result blocking; [targeted CI passed](https://github.com/bdysvik/jexpress/actions/runs/42221134666). This is **not deployed yet**.
+- [x] **Token cleanup deployed to production:** [J-Express PR #66](https://github.com/bdysvik/jexpress/pull/66) implements `/revoke-session` token deletion + 31-day deny markers, owner-authorized disconnect/revoke, and in-flight result blocking; [targeted CI passed](https://github.com/bdysvik/jexpress/actions/runs/42221134666). Production deploy [42371383284](https://github.com/bdysvik/jexpress/actions/runs/42371383284) passed on 7 November 2026.
 - [ ] **Live post-deploy**: verify two independent client/account OAuth flows, revoked refresh tokens, reconnect and in-flight read cancellation on the actual production worker.
 - [x] All five skill files were individually read from the feature branch; each contains YAML frontmatter with `name` and `description` and a domain-specific tool procedure. Actual ChatGPT skill discovery remains untested.
-- [x] **Implementation/Worker configuration audit**: [2026-11-06 technical report](https://github.com/bdysvik/jexpress/blob/feature/chatgpt-oauth-revocation/docs/validation/chatgpt-oauth-privacy-audit-2026-11-06.md) covers Cloudflare Durable Object retention, authentication records, ephemeral MCP results, IP-address rate limiting and analytics. Live Worker `jexpress-web` reports `logpush: false`, no Tail Worker consumers, and `observability: null`.
+- [x] **Implementation/Worker configuration audit**: [2026-11-06 technical report](https://github.com/bdysvik/jexpress/blob/main/docs/validation/chatgpt-oauth-privacy-audit-2026-11-06.md) covers Cloudflare Durable Object retention, authentication records, ephemeral MCP results, IP-address rate limiting and analytics. Live Worker `jexpress-web` reports `logpush: false`, no Tail Worker consumers, and `observability: null`.
 - [ ] **Provider/production verification still required**: confirm account-wide Cloudflare security/log retention, backend expiry/cleanup after deployment and independent AI-provider retention. Source/Worker settings alone cannot establish the absence of all logs.
 - [ ] Finalize Terms of Use and stable public URLs. `chatgpt/TERMS-DRAFT.md` is not an effective legal document.
 - [ ] Review app permissions and reviewer onboarding in a separate browser/client before public submission.
@@ -40,7 +40,7 @@ Scope: static review of `resonalis/jexpress-plugin` and current `bdysvik/jexpres
 - [ ] **Client runtime**: installing/activating [the private plugin](https://chatgpt.com/plugins/plugins_6aece47f9fe88191839b169360adc341) and invoking each skill in a fresh ChatGPT conversation remains. Skills from an existing development J-Express plugin are not evidence this private plugin is active.
 - [ ] **Public submission**: With MCP tool scan/review and policy checks in OpenAI's submission portal remain.
 - [x] **Publisher plan:** use the current personal developer identity for initial release (the owner accepted the personal byline); consider a future Resonalis AS publisher identity later, subject to platform migration rules.
-- [ ] **Privacy link**: plugin manifest links `main/PRIVACY.md`, but cross-platform privacy revisions are branch-only until merged.
+- [x] **Privacy/terms URLs:** public website documents deployed data flows, and the plugin manifest links to `https://resonalis.com/privacy/` and `https://resonalis.com/terms/`. Public listing acceptance remains subject to OpenAI review.
 
 ## Branding verification — 2026-11-05
 
@@ -54,4 +54,4 @@ Scope: static review of `resonalis/jexpress-plugin` and current `bdysvik/jexpres
 
 ## Release recommendation
 
-**Do not submit yet.** The new revocation implementation passes focused tests but is not deployed. Live two-client isolation/reconnect checks, provider retention confirmation and public submission portal checks remain.
+**Ready to upload as an initial public draft (not approved or published).** Revocation production deployment, complete MCP safety annotations, five positive and three negative review cases, terms link, and CI package checks are complete. The OpenAI submission portal must still verify the developer identity and domain, connect OAuth, scan the tools, accept reviewer details and policy attestations, and issue an approval. Independent two-client live testing and third-party retention review remain recommended follow-ups; a general overview video may not satisfy the required reviewer-specific demonstration.

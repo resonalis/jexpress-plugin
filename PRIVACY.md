@@ -1,6 +1,6 @@
 # J-Express AI plugin privacy policy
 
-Last updated: 6 November 2026
+Last updated: 7 November 2026
 
 This policy describes the J-Express AI integration for supported clients, including Claude and ChatGPT, using the MCP server at `https://jexpress.resonalis.com/jexpress2026/mcp`.
 
@@ -16,7 +16,7 @@ The J-Express server uses Cloudflare Durable Objects for connection/session stat
 
 The relay may temporarily store a queued MCP request and its response, including the returned scientific data, while passing it between your browser and the approved AI client. Results are deleted when collected and otherwise become eligible for cleanup after about 60 seconds. Expiration is checked when records are used, while actual deletion can be delayed by periodic cleanup, provider retention or backups. This is not a permanent server-side dataset repository.
 
-**Disconnect and revoke:** the live relay denies MCP access as soon as browser sharing is inactive. A security hardening release currently under review additionally deletes access/refresh records on Disconnect/Revoke, immediately purges queued results and keeps a session-ID-only revocation marker for 31 days to prevent credential reactivation. These *new deletion guarantees* apply only once that release is deployed; they must be verified on the live endpoint before public publication.
+**Disconnect and revoke:** the live relay denies MCP access as soon as browser sharing is inactive. The production Worker deployed on 7 November 2026 is designed to delete associated access/refresh records on an authenticated Disconnect/Revoke, purge queued requests and results, and keep a session-ID-only revocation marker for up to 31 days to prevent credential reactivation. Source-level tests and deployment succeeded. Independent-client integration testing and verification of Cloudflare provider-side storage and deletion remain outstanding; data already received by an AI provider cannot be withdrawn.
 
 For OAuth dynamic client-registration abuse prevention, J-Express temporarily stores a rate-limit key derived from the caller's IP address (IPv6 grouped to a /64 prefix), with approximately one-hour expiry. This technical network information is separate from optional anonymous usage counts.
 
@@ -36,4 +36,4 @@ A read-only inspection of the production Worker on 6 November 2026 found `logpus
 
 Resonalis — contact@resonalis.com.
 
-**Publication note:** The application source and selected live Worker settings have been audited. Before public release, verify that the revocation changes are deployed, confirm end-to-end isolation and account-wide logging/retention behavior, and publish a stable, reviewed notice. This text is not evidence of external legal certification.
+This notice describes documented application behavior and selected live infrastructure settings, not external security, privacy or clinical certification. We cannot guarantee deletion of third-party provider logs or copies already received by a connected AI client.
