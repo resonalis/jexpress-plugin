@@ -7,16 +7,30 @@
 **Support:** https://github.com/resonalis/jexpress-plugin/issues
 **Privacy / Terms:** https://resonalis.com/privacy/ · https://resonalis.com/terms/
 
-No J-Express user account, password, email code, MFA, or confidential dataset is needed. A local browser tab is needed because J-Express runs the analysis on the connected browser client. The reviewer must approve one OAuth pairing request in that tab. Do not put tokens or session secrets into the reviewer-information form.
+The reviewer demo is **not an ordinary J-Express user account**. It is an isolated, password-protected entry point to the bundled scientific browser demo. The username/password must be provided **only** in the OpenAI review portal, not in the plugin package, source or public issues. There is no email verification, MFA or paid subscription.
 
-## Prepare the public demo
+## OpenAI portal: Reviewer credentials
 
-1. In one browser tab, open J-Express and load the bundled **Diauxic shift** dataset. Leave the tab open and the demo selected.
-2. Expand **AI connection**, choose **Connect**, then keep this J-Express tab open.
-3. In the ChatGPT plugin submission portal choose **With MCP**, connect the production HTTPS endpoint, and complete the displayed domain challenge (the challenge token comes from the portal and cannot be pre-filled).
-4. On OAuth authorization, copy the UUID request ID from the authorization page into the J-Express **OAuth request ID** input. Check the actual client and return host, review scopes, approve **dataset:read**; optional project write and view capture scopes are not necessary for the five positive review cases.
-5. Return to the ChatGPT connection and complete authorization. Use the positive and negative prompts imported from `plugin.json`. Dataset ID may vary: resolve it from `list_datasets` rather than hardcoding one.
-6. After testing, click **Disconnect** in the J-Express browser tab. No AI tool can read the data after disconnect.
+- **Reviewer sign-in method:** Username and password
+- **Login URL:** `https://jexpress.resonalis.com/jexpress2026/reviewer/login`
+- **Tenant / workspace:** `J-Express Reviewer Demo`
+- **Username:** `jexpress-reviewer`
+- **Password:** Provisioned as the separate Cloudflare Worker secret `REVIEWER_DEMO_PASSWORD`; copy it from the owner's secure credential record. Never commit it to GitHub.
+- **Access:** Read-only OAuth to the bundled educational gene-expression demo, with no access to other visitors' data.
+
+## Reviewer workflow
+
+1. Open the login URL above in the same browser profile used for the ChatGPT authorization window and enter the supplied credentials.
+2. J-Express loads its bundled gene-expression example instead of any browser's previously saved project. The AI connection starts automatically. Keep this browser tab open; look for **Reviewer demo is ready** in AI connection.
+3. Start J-Express OAuth connection from ChatGPT. An authorization URL opened in **the same browser profile** picks up the signed reviewer cookie and pairs only the demo's active browser session; it automatically approves only `dataset:read`. No request-ID copying or manual Approve click is required.
+4. Run the supplied read-only scientific review cases. Use `list_datasets` first to obtain the actual dataset ID/name. The demo data and metadata are real bundled fixtures, not a fake tool response.
+5. Disconnect the AI client or close the demo tab when finished. The browser session times out after roughly 30 minutes without renewal. The reviewer cookie lasts at most two hours, then sign-in is required again.
+
+If a separate/incognito browser opens the OAuth page, its reviewer cookie will not be present and the normal manual pairing page appears. Return to the signed-in browser or log in there too.
+
+## Operator deployment configuration
+
+The production Cloudflare Worker `jexpress-web` must have **both** secret bindings before the reviewer login route becomes available: `REVIEWER_DEMO_PASSWORD` (random password at least 24 characters) and `REVIEWER_DEMO_SIGNING_KEY` (independent random signing secret at least 32 characters). Never put either into Wrangler config, the repository, the plugin ZIP or public review notes. The login is rate-limited per IP and the signed reviewer cookie is Secure, HttpOnly and SameSite=Lax. Only signed-in reviewer sessions can auto-approve demo OAuth; `dataset:read` is the maximum automatically granted scope.
 
 ## Review materials and caveats
 
