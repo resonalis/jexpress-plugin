@@ -1,0 +1,48 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "jexpress",
+  "version": "0.1.2",
+  "description": "Scientific matrix, RNA-seq and embedding analysis with J-Express MCP tools and reusable analysis skills.",
+  "author": {
+    "name": "Resonalis",
+    "email": "contact@resonalis.com",
+    "url": "https://resonalis.com"
+  },
+  "homepage": "https://jexpress.resonalis.com/jexpress2026",
+  "repository": "https://github.com/resonalis/jexpress-plugin",
+  "license": "Apache-2.0",
+  "keywords": [
+    "bioinformatics",
+    "rna-seq",
+    "single-cell",
+    "embeddings",
+    "scientific-analysis"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "J-Express",
+        "shortDescription": "Explore scientific datasets with AI-assisted analysis.",
+        "longDescription": "Connect to your J-Express browser workspace to inspect scientific matrices, run supported analyses and review results using five scientific workflow skills.",
+        "developerName": "Resonalis",
+        "category": "Productivity",
+        "capabilities": [
+          "Read",
+          "Write"
+        ],
+        "websiteURL": "https://jexpress.resonalis.com/jexpress2026",
+        "supportURL": "https://github.com/resonalis/jexpress-plugin/issues",
+        "privacyPolicyURL": "https://github.com/resonalis/jexpress-plugin/blob/main/PRIVACY.md",
+        "defaultPrompt": [
+          "Inspect my J-Express dataset and recommend a defensible analysis workflow.",
+          "Check quality and normalization options for my RNA-seq dataset.",
+          "Explain the PCA and clustering results in my J-Express workspace."
+        ],
+        "composerIcon": "./assets/jexpress-logo.svg",
+        "logo": "./assets/jexpress-logo.svg",
+        "brandColor": "#1451C0",
+        "brandColorDark": "#00C8BF"
+      }
+    }
+  }
+}
