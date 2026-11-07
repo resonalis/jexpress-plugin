@@ -40,7 +40,7 @@ manifest = json.loads((root / "plugin.json").read_text(encoding="utf-8"))
 mcp = json.loads((root / "mcp.json").read_text(encoding="utf-8"))
 assert manifest["name"] == "jexpress"
 assert manifest["version"]
-assert manifest["author"]["name"] == "Resonalis"
+assert manifest["author"]["name"] == "Bjarte Dysvik"
 assert manifest["author"]["email"] == "contact@resonalis.com"
 assert len(mcp["mcpServers"]) == 1
 assert mcp["mcpServers"]["jexpress"]["type"] == "streamable-http"
@@ -49,7 +49,11 @@ assert mcp["mcpServers"]["jexpress"]["url"] == "https://jexpress.resonalis.com/j
 openai = manifest.get("extensions", {}).get("com.openai", {})
 interface = openai.get("interface", {})
 assert interface["displayName"] == "J-Express"
-assert interface["developerName"] == "Resonalis"
+assert interface["developerName"] == "Bjarte Dysvik"
+assert interface["category"] == "Data & Analytics", "Research and numerical analysis must be categorized as Data & Analytics"
+assert "scientific data analysis" in interface["longDescription"].lower(), "Listing must establish the research-analysis use case"
+assert manifest["author"]["name"] == interface["developerName"], "Developer must match verified individual publisher identity"
+assert interface["privacyPolicyURL"] == "https://resonalis.com/privacy/"
 assert interface["logo"] == "./assets/jexpress-logo.svg"
 assert interface["composerIcon"] == "./assets/jexpress-logo.svg"
 for field in ("composerIcon", "logo"):

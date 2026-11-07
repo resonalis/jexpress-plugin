@@ -2,7 +2,33 @@
 
 Last updated: 7 November 2026
 
-This policy describes the J-Express AI integration for supported clients, including Claude and ChatGPT, using the MCP server at `https://jexpress.resonalis.com/jexpress2026/mcp`.
+This policy describes J-Express, a scientific data analysis product operated by **Bjarte Dysvik**, an individual developer in Norway using **Resonalis** as the project and brand name. Resonalis is not currently a separately registered company. The policy applies to ChatGPT and Claude integrations using the MCP server at `https://jexpress.resonalis.com/jexpress2026/mcp`. The public version is at https://resonalis.com/privacy/. For privacy or user-rights inquiries contact **contact@resonalis.com**.
+
+## Categories, purposes and recipients of data
+
+J-Express is intended for **non-personal, non-clinical research datasets**. We do not require an account or ask you to submit payment information, patient records, passwords, or personal identity documents. Service operation nevertheless involves some technical information that may constitute personal data.
+
+| Information | Purpose | Recipient / location |
+| --- | --- | --- |
+| Browser datasets, annotations, analyses and local preferences | Perform research analysis and restore local work | Your own browser storage; not routinely uploaded to a permanent J-Express dataset repository |
+| Random browser session ID, connection secret, OAuth client details and permissions, hashed access/refresh tokens | Authenticate users, protect tools and relay approved requests | Cloudflare Durable Objects; not shared with arbitrary AI clients |
+| Short technical dataset summary (type, shape and numeric analysis parameters) | Identify the connected workspace before authorizing tools | Cloudflare session relay |
+| Authorized MCP results (selected matrix values, labels, annotations, research metadata, plots) | Answer the precise AI tool request | Temporarily via Cloudflare relay, then the specific AI client/provider you authorized (such as OpenAI or Anthropic) |
+| IP-derived anti-abuse rate-limit keys and ordinary hosting request metadata | Protect client registration, delivery and security | Cloudflare infrastructure |
+| Optional predefined usage event/analysis categories and count | Understand usage and reliability | Cloudflare Analytics Engine; no dataset values or persistent user ID in the application event |
+| Email address and content you voluntarily send to support | Respond to your inquiry | Our email-service provider; do not email private datasets or credentials |
+
+External annotation and enrichment services may receive gene identifiers or background lists when you explicitly invoke such a feature. The AI provider may independently retain tool results in chats or logs under its terms and controls. We do not sell research dataset content or use it for advertising.
+
+## Application-level retention
+
+An inactive browser AI session expires after approximately **30 minutes**, an OAuth access token after **15 minutes**, a refresh token after at most **30 days**, dynamic OAuth client registration after **30 days of inactivity**, an OAuth pairing request after **5 minutes**, and an authorization code after approximately **1 minute**. Uncollected tool results become eligible for cleanup after approximately **60 seconds**. A session revocation marker with no dataset contents persists for up to **31 days** to prevent old tokens being reactivated. IP-derived registration rate-limit keys expire after approximately **one hour**.
+
+Disconnect/Revoke are designed to delete that session's access/refresh records and queued tool results promptly. Expiry and actual deletion are not identical; cleanup, Cloudflare logs/backups and data already received by an AI provider have their own retention mechanisms and are not guaranteed to disappear immediately. The browser workspace may persist until you delete it. Support correspondence is retained as needed to resolve the request and meet applicable recordkeeping obligations.
+
+## Choices and controls
+
+You can analyze data without AI, refuse/decline MCP approval, approve only selected scopes, disconnect the AI session, turn off optional telemetry in the app (or by using `?telemetry=off`), and clear the browser workspace/site storage. For information handled by an independent AI provider, use that provider's data controls. Contact **contact@resonalis.com** for questions or applicable access, correction, deletion and other data-rights requests.
 
 ## Browser workspace and data flows
 
@@ -34,6 +60,6 @@ A read-only inspection of the production Worker on 6 November 2026 found `logpus
 
 ## Contact
 
-Resonalis — contact@resonalis.com.
+Bjarte Dysvik (Resonalis project) — contact@resonalis.com.
 
 This notice describes documented application behavior and selected live infrastructure settings, not external security, privacy or clinical certification. We cannot guarantee deletion of third-party provider logs or copies already received by a connected AI client.

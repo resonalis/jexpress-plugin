@@ -27,7 +27,7 @@ Each skill states what J-Express can and cannot do today. For example, inferenti
 
 ## Install and availability
 
-**ChatGPT:** J-Express can already be connected through its MCP endpoint in supported ChatGPT clients. A dedicated ChatGPT plugin package and public directory listing are under development and have not yet been approved. The same five scientific skills are intended to be reused, but automatic skill loading has not yet been verified. See the [ChatGPT development branch](https://github.com/resonalis/jexpress-plugin/tree/feature/chatgpt-plugin/chatgpt) and its [verification report](https://github.com/resonalis/jexpress-plugin/blob/feature/chatgpt-plugin/chatgpt/VERIFICATION.md).
+**ChatGPT:** J-Express can already be connected through its MCP endpoint in supported ChatGPT clients. The J-Express plugin package has been prepared for OpenAI directory review; approval and public availability remain pending. The same five scientific skills are intended to be reused, but automatic skill loading has not yet been verified. See the [ChatGPT submission materials](chatgpt/) and [verification report](chatgpt/VERIFICATION.md).
 
 **Claude:**
 
@@ -44,13 +44,13 @@ See the [privacy policy](PRIVACY.md) for what the server stores and for how long
 
 ## Product and publisher branding
 
-J-Express is the product, and [its official seven-hexagon mark](assets/jexpress-logo.svg) is the ChatGPT plugin `logo` and `composerIcon`. [Resonalis's approved moth emblem](assets/resonalis-logo.svg) identifies the publisher; the two logos must not be interchanged.
+J-Express is the product, and [its official seven-hexagon mark](assets/jexpress-logo.svg) is the ChatGPT plugin `logo` and `composerIcon`. [Resonalis's website moth emblem](assets/resonalis-logo.webp) identifies the project brand; the two logos must not be interchanged.
 
-The portable manifest declares **Resonalis** as author/developer. Personal, private ChatGPT plugin preview cards may nonetheless show the importing account's name rather than the company's verified publisher identity. A public listing must be submitted under a verified Resonalis developer identity. The companion Claude icon remains unchanged.
+The portable manifest declares **Bjarte Dysvik** as the individual developer and publisher, with **Resonalis** as the project brand. A future legal entity (Resonalis AS) may be considered separately; the current submission does not claim one. The companion Claude icon remains unchanged.
 
 ## Support
 
-J-Express and this plugin are provided by Resonalis. Contact: contact@resonalis.com.
+J-Express and this plugin are operated by Bjarte Dysvik under the Resonalis project brand. Contact: contact@resonalis.com.
 
 ## License
 

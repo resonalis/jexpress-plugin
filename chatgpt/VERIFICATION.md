@@ -42,16 +42,16 @@ Scope: static review of `resonalis/jexpress-plugin` and current `bdysvik/jexpres
 - [x] **Publisher plan:** use the current personal developer identity for initial release (the owner accepted the personal byline); consider a future Resonalis AS publisher identity later, subject to platform migration rules.
 - [x] **Privacy/terms URLs:** public website documents deployed data flows, and the plugin manifest links to `https://resonalis.com/privacy/` and `https://resonalis.com/terms/`. Public listing acceptance remains subject to OpenAI review.
 
-## Branding verification — 2026-11-05
+## Branding verification — updated 2026-11-07
 
 - [x] Imported the canonical J-Express 7-hexagon SVG from `bdysvik/jexpress/public/jexpress-logo.svg` into `assets/jexpress-logo.svg`, adjusted only for square image sizing. It is referenced by **both** portable OpenAI `interface.logo` and `interface.composerIcon`.
 - [x] Added the **exact** Resonalis website branding file `bdysvik/molmine-website/public/assets/Rlogo.webp` as `assets/resonalis-logo.webp` and removed the incorrect alternate SVG. The WebP is separate from the J-Express application icon.
-- [x] Portable manifest author: `Resonalis <contact@resonalis.com>`. OpenAI interface: `developerName: Resonalis`.
+- [x] Portable manifest for public submission v0.1.5 now uses the individual publisher **Bjarte Dysvik** in both `author.name` and `interface.developerName`; **Resonalis** remains the project brand. Category updated from Productivity to Data & Analytics.
 - [x] GitHub Actions run [42106063691](https://github.com/resonalis/jexpress-plugin/actions/runs/42106063691) passed square-image and manifest checks, packaged both assets, and uploaded a test ZIP.
 - [x] Updated existing personal private plugin through **v0.1.2**. Readback verifies `author.name: Resonalis`, `developerName: Resonalis`, J-Express SVG app icon and the actual Resonalis WebP publisher asset. The personal ChatGPT card may still show the owner-account byline.
-- [ ] **Observed ChatGPT UI byline/icon still need owner verification.** Personal scope remains `USER`; even with `developerName: Resonalis` in normalized metadata, OpenAI may display the private importing account's verified identity. The old card showed a default star despite the old PNG already containing the J-Express logo; new SVG mapping is accepted but on-screen rendering cannot be checked by tool.
+- [ ] Verify that the public portal and user-facing preview display the J-Express product icon and the selected individual developer name. A previously imported private plugin may display historic metadata until separately updated.
 - [ ] If/when Resonalis AS is founded and independently verified, assess whether OpenAI supports moving the listing to the company developer identity. The portable manifest does not control the account-level byline.
 
 ## Release recommendation
 
-**Ready to upload as an initial public draft (not approved or published).** Revocation production deployment, complete MCP safety annotations, five positive and three negative review cases, terms link, and CI package checks are complete. The OpenAI submission portal must still verify the developer identity and domain, connect OAuth, scan the tools, accept reviewer details and policy attestations, and issue an approval. Independent two-client live testing and third-party retention review remain recommended follow-ups; a general overview video may not satisfy the required reviewer-specific demonstration.
+**Ready to upload as an initial public draft (not approved or published).** Revocation production deployment, complete MCP safety annotations, five positive and three negative review cases, terms link, and CI package checks are complete. The submitted OpenAI portal has already connected the MCP server, but category, privacy and tool findings require review and the skill scan must complete. Re-upload the updated v0.1.5 ZIP and rescan hosted tools; approval is still pending. Independent two-client live testing and third-party retention review remain recommended follow-ups; a general overview video may not satisfy the required reviewer-specific demonstration.
